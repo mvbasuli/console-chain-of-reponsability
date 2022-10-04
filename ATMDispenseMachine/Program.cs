@@ -1,23 +1,22 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using ATMDispenseMachine.InfraStructure;
-using System.IO;
-using System.Text;
-using System;
-
-namespace TradeCategory
+﻿using ATMDispenseMachine.Chain;
+using ATMDispenseMachine.Chain.Classes;
+namespace ATMDispenseMachine
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var serviceCollection = new ServiceCollection();
-            serviceCollection.ConfigureServices();
-            var serviceProvider  = serviceCollection.BuildServiceProvider();
+            ATMDispenseChain ATMDispenseChain = new ATMDispenseChain();
+            while (true)
+            {
+                Console.WriteLine("Enter amount to dispense");
+                if (int.TryParse(Console.ReadLine(), out int amount))
+                {
+                    Console.WriteLine(ATMDispenseChain.d100.Dispense(new Model.Currency(amount)));
+                }
 
-            // var categoryService = serviceProvider.GetService<ICategoryService>();
+            }
 
-            // if (categoryService != null)
-            //     categoryService.CategorizeTrades();
         }
     }
 }
